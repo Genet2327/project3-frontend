@@ -1,4 +1,4 @@
-# pro
+# tutorial-frontend-vue2
 
 ## Project setup
 ```
