@@ -1,64 +1,91 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 
-import Login from "./views/Login.vue"
+import Login from "./views/Login.vue";
 
-import TutorialsList from "./views/TutorialsList.vue"
-import EditTutorial from "./views/EditTutorial.vue"
-import AddTutorial from "./views/AddTutorial.vue"
-import ViewTutorial from "./views/ViewTutorial.vue"
-import AddLesson from "./views/AddLesson.vue"
-import EditLesson from "./views/EditLesson.vue"
+import CourseView from "./views/ViewCourse";
+import CalanderApp from "./views/CalanderApp.vue";
+import EditCourse from "./views/EditCourse.vue";
+import courseView from "./views/CourseList.vue";
+import AddCourse from "./views/AddCourse.vue";
+import AddSection from "./views/AddSection.vue";
+import EditSection from "./views/EditSection";
 
-Vue.use(Router)
+import SemesterList from "./views/semisterList.vue";
+import AddSemester from "./views/AddSemester.vue";
+import EditSemester from "./views/EditSemester.vue";
 
-const router =  new Router({
-  mode: 'hash',
-  linkExactActiveClass: 'active',
+Vue.use(Router);
+
+const router = new Router({
+  mode: "hash",
+  linkExactActiveClass: "active",
   base:
-//    process.env.NODE_ENV === 'development'? "/" : "/tutorScheduling/", - for AWS
-    process.env.NODE_ENV === 'development'? "/" : "/",
+    //    process.env.NODE_ENV === 'development'? "/" : "/tutorScheduling/", - for AWS
+    process.env.NODE_ENV === "development" ? "/" : "/",
   routes: [
     {
       path: "/",
       name: "login",
-      component: Login
+      component: Login,
     },
     {
-      path: "/tutorials",
-      name: "tutorials",
-      component: TutorialsList
+      path: "/Semisters",
+      name: "SemisterList",
+      component: SemesterList,
+    },
+    {
+      path: "/add-semisters",
+      name: "AddSemester",
+      component: AddSemester,
     },
     {
       path: "/edit/:id",
-      name: "edit",
-      component: EditTutorial,
-      props: true
+      name: "EditSemester",
+      component: EditSemester,
+      props: true,
+    },
+
+    {
+      path: "/calander",
+      name: "Calander",
+      component: CalanderApp,
     },
     {
-      path: "/add",
-      name: "add",
-      component: AddTutorial
+      path: "/Courses",
+      name: "Courseview",
+      component: courseView,
+    },
+    {
+      path: "/edit/:id",
+      name: "EditCourse",
+      component: EditCourse,
+      props: true,
+    },
+    {
+      path: "/Courseadd",
+      name: "CourseAdd",
+      component: AddCourse,
     },
     {
       path: "/view/:id",
-      name: "view",
-      component: ViewTutorial,
-      props: true
+      name: "viewCourse",
+      component: CourseView,
+      props: true,
     },
     {
-      path: "/addLesson/:tutorialId",
-      name: "addLesson",
-      component: AddLesson,
-      props: true
+      path: "/addSection/:courseId",
+      name: "addSection",
+      component: AddSection,
+      props: true,
     },
     {
-      path: "/editLesson/:tutorialId/:lessonId",
-      name: "editLesson",
-      component: EditLesson,
-      props: true
-    }
-  ]
-})
+      path: "/editSection/:courseId/:SectionId",
+      name: "editSection",
+      component: EditSection,
+      props: true,
+    },
+  ],
+});
 
 export default router;
