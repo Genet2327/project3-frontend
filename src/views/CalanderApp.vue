@@ -30,14 +30,14 @@
 </template>
 
 <script>
-import SectionDataService from "../services/sectionServices";
-import SectionTimeDataService from "../services/sectionTimeServices";
-import CourseDataService from "../services/courseServices";
+import sectionServices from "../services/sectionServices";
+import sectionTimeServices from "../services/sectionTimeServices";
+import courseServices from "../services/courseServices";
 export default {
   data: () => ({
-    today: "2023-01-08", // placeholder same as first session
-    calEnd: "2023-04-27", // ending date of the last session
-    sessionOne: "2023-01-08", // placeholder first session start
+    today: "2022-04-11", // placeholder same as first session
+    calEnd: "2022-04-15", // ending date of the last session
+    sessionOne: "2022-04-11", // placeholder first session start
     sessionTwo: "2023-03-06", // placeholder second session start
     displayedSession: "First Session",
     sections: [],
@@ -45,36 +45,7 @@ export default {
     courses: [],
     selectedEvent: {},
     selectedOpen: false,
-    events: [
-      // example events
-      {
-        name: "Weekly Meeting",
-        start: "2019-01-07 9:00",
-        // start: {
-        //   date: '2019-01-07',
-        //   time: '09:00',
-        // },
-        end: "2019-01-07 10:00",
-      },
-      {
-        name: `Thomas' Birthday`,
-        start: "2019-01-10",
-      },
-      {
-        name: "Mash Potatoes",
-        start: "2019-01-09 12:30",
-        end: "2019-01-09 15:30",
-      },
-      {
-        name: "Second Weekly Meeting",
-        start: "2019-07-10 12:30",
-        end: "2019-07-10 15:00",
-      },
-      {
-        name: "Some other event",
-        start: "2019-07-07 12:30",
-        end: "2019-07-07 15:00",
-      },
+    events: [      
     ],
   }),
   mounted() {
@@ -82,13 +53,16 @@ export default {
   },
   async beforeMount() {
     await this.getSections();
-    // console.log(this.events)
+    //console.log(this.events)
   },
   methods: {
     async getSections() {
-      await SectionDataService.getAll()
+      await sectionServices
+        .getAllSections(1)
         .then(async (response) => {
           this.sections = response.data;
+          //console.log("sections", this.sections)
+
           await this.getSectionTimes(); // grab sectionTimes
           await this.getCourses();
           // map sectionTimes to sections
@@ -102,7 +76,8 @@ export default {
         });
     },
     async getSectionTimes() {
-      await SectionTimeDataService.getAll()
+      await sectionTimeServices
+        .getAll()
         .then((response) => {
           this.sectionTimes = response.data;
           // Change this for the filter
@@ -113,7 +88,8 @@ export default {
         });
     },
     async getCourses() {
-      await CourseDataService.getAll()
+      await courseServices
+        .getAll()
         .then((response) => {
           this.courses = response.data;
         })
@@ -125,8 +101,9 @@ export default {
     // If the section is a full semester, 2 events will
     // be created, one for each section time.
     createEvent(section) {
-      this.sectionTimes.forEach((sectionTime) => {
-        if (section.id == sectionTime.sectionId) {
+      this.sectionTimes.forEach((e) => {
+        if (section.id == e.sectionId) {         
+
           // find the course name
           // suggest that the sections controller has a function to grab sections, include their courses and include their sectionTimes
           let relevantCourse = this.courses.find(
@@ -141,8 +118,12 @@ export default {
             // find a function to get the next X weekday from a date.
             // have a loop to iterate through the weekdays in sectionTime and make
             // and event for each one that is valid
-            start: sectionTime.startDate + " " + sectionTime.startTime,
-            end: sectionTime.startDate + " " + sectionTime.endTime,
+            // start: e.startDate,
+            // end: e.startDate,
+            // start: e.startDate + " " + e.startTime,
+            // end: e.startDate + " " + e.endTime,
+            start: "2022-04-11 12:00",
+            end: "2022-04-11 1:00"
           };
           // console.log(tempEvent);
           this.events.push(tempEvent);
