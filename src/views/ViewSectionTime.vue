@@ -31,9 +31,9 @@
                 <v-icon small class="mx-4" @click="editSection(item)">
                   mdi-pencil
                 </v-icon>
-                <!-- <v-icon small class="mx-4" @click="viewSectionTime()">
+                <v-icon small class="mx-4" @click="viewSectionTime()">
                   mdi-format-list-bulleted-type
-                </v-icon> -->
+                </v-icon>
                 <v-icon small class="mx-4" @click="deleteSection(item)">
                   mdi-trash-can
                 </v-icon>

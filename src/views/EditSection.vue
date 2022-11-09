@@ -27,7 +27,15 @@
           required
         >
         </v-text-field>
-
+        <v-select
+          v-bind:items="semesters"
+          v-model="semesterId"
+          label="Select semester"
+          item-text="name"
+          item-value="id"
+          return-object
+          autocomplete
+        ></v-select>
         <v-btn
           :disabled="!valid"
           color="success"
@@ -45,22 +53,35 @@
 
 <script>
 import SectionServices from "../services/sectionServices";
-
+import SemisterServices from "../services/semisterServices";
 export default {
   name: "edit-section",
   props: ["courseId", "sectionId"],
   data() {
     return {
       valid: false,
+      semesters: [],
+      semesterId: null,
       section: {},
       message: "Enter data and click save",
     };
   },
   methods: {
+    semesterDrop() {
+      SemisterServices.getAll()
+        .then((response) => {
+          this.semesters = response.data;
+          console.log(this.semesters.name);
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
     retrieveSection() {
       SectionServices.getSection(this.courseId, this.sectionId)
         .then((response) => {
           this.section = response.data;
+          this.semesterId = this.section.semesterId;
         })
         .catch((e) => {
           this.message = e.response.data.message;
@@ -71,6 +92,7 @@ export default {
         title: this.section.title,
         number: this.section.number,
         courseId: this.section.courseId,
+        semesterId: this.semesterId.id
       };
       SectionServices.updateSection(
         this.section.courseId,
@@ -81,7 +103,7 @@ export default {
           this.section.id = response.data.id;
 
           this.$router.push({
-            name: "view",
+            name: "viewCourse",
             params: { id: this.section.courseId },
           });
         })
@@ -91,13 +113,14 @@ export default {
     },
     cancel() {
       this.$router.push({
-        name: "view",
+        name: "viewCourse",
         params: { id: this.section.courseId },
       });
     },
   },
   mounted() {
     this.retrieveSection();
+    this.semesterDrop();
   },
 };
 </script>

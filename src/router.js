@@ -15,6 +15,11 @@ import SemesterList from "./views/semisterList.vue";
 import AddSemester from "./views/AddSemester.vue";
 import EditSemester from "./views/EditSemester.vue";
 
+import SectionTimeList from "./views/SectionTimeList.vue";
+import AddSectionTime from "./views/AddSectionTime.vue";
+import EditSectionTime from "./views/EditSectionTime.vue";
+import ViewSectionTime from "./views/ViewSectionTime.vue";
+
 Vue.use(Router);
 
 const router = new Router({
@@ -43,6 +48,28 @@ const router = new Router({
       path: "/edit/:id",
       name: "EditSemester",
       component: EditSemester,
+      props: true,
+    },
+    {
+      path: "/viewSectionTime/:id",
+      name: "viewSectionTime",
+      component: ViewSectionTime,
+      props: true,
+    },
+    {
+      path: "/SectionTimes",
+      name: "SectionTimeList",
+      component: SectionTimeList,
+    },
+    {
+      path: "/add-SectionTimes",
+      name: "AddSectionTime",
+      component: AddSectionTime,
+    },
+    {
+      path: "/edit/:id",
+      name: "EditSectionTime",
+      component: EditSectionTime,
       props: true,
     },
 
