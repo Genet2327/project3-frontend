@@ -10,7 +10,7 @@
         <v-card>
           <v-card-title>
             Courses
-            <v-btn class="mx-2" color="success"  exact :to="{ name: 'CourseAdd'}" text> Add </v-btn>
+            <v-btn v-show="user.role == 'Admin'" class="mx-2" color="success"  exact :to="{ name: 'CourseAdd'}" text> Add </v-btn>
 
             <v-spacer></v-spacer>
             <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details>
@@ -25,7 +25,10 @@
                 <!-- <v-icon small class="mx-4" @click="ADDCourseForUser(item)">
                   mdi-pencil
                 </v-icon> -->
-                <v-icon small class="mx-4" @click="editCourse(item)">
+                <v-icon v-show="user.role == 'Admin'" small class="mx-4" @click="editCourse(item)">
+                  mdi-account
+                </v-icon>
+                <v-icon v-show="user.role == 'Admin'" small class="mx-4" @click="editCourse(item)">
                   mdi-pencil
                 </v-icon>
                 <v-icon small class="mx-4" @click="viewCourse(item)">
