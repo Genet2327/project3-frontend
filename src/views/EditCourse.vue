@@ -26,10 +26,10 @@
           required
         ></v-text-field>
         <v-text-field
-          v-model="course.houre"
+          v-model="course.Hours"
           id="name"
           :counter="50"
-          label="Houre"
+          label="Hours"
           required
         ></v-text-field>
 
@@ -91,7 +91,7 @@ export default {
     updateCourse() {
       var data = {
         courseNumber: this.course.courseNumber,
-        houre: this.course.houre,
+        Hours: this.course.Hours,
         level: this.course.level,
         name: this.course.name,
         description: this.course.description,

@@ -26,18 +26,18 @@
         <v-data-table
           :headers="headers"
           :search="search"
-          :items="semisters"
+          :items="semesters"
           :items-per-page="50"
         >
           <template v-slot:[`item.actions`]="{ item }">
             <div>
-              <v-icon small class="mx-4" @click="editSemister(item)">
+              <v-icon small class="mx-4" @click="editsemester(item)">
                 mdi-pencil
               </v-icon>
-              <!-- <v-icon small class="mx-4" @click="viewSemister(item)">
+              <!-- <v-icon small class="mx-4" @click="viewsemester(item)">
                 mdi-format-list-bulleted-type
               </v-icon> -->
-              <v-icon small class="mx-4" @click="deleteSemister(item)">
+              <v-icon small class="mx-4" @click="deletesemester(item)">
                 mdi-trash-can
               </v-icon>
             </div>
@@ -49,17 +49,17 @@
 </template>
 
 <script>
-import SemisterServices from "../services/semisterServices";
+import semesterServices from "../services/semesterServices";
 
 import Utils from "@/config/utils.js";
 
 export default {
-  name: "semisters-list",
+  name: "semesters-list",
   data() {
     return {
       search: "",
-      semisters: [],
-      currentSemister: null,
+      semesters: [],
+      currentsemester: null,
       currentIndex: -1,
       name: "",
       user: {},
@@ -74,45 +74,45 @@ export default {
   },
   mounted() {
     this.user = Utils.getStore("user");
-    this.retrieveSemister();
+    this.retrievesemester();
   },
   methods: {
-    editSemister(semister) {
-      this.$router.push({ name: "EditSemester", params: { id: semister.id } });
+    editsemester(semester) {
+      this.$router.push({ name: "EditSemester", params: { id: semester.id } });
     },
-    viewSemister(semister) {
-      this.$router.push({ name: "SemesterList", params: { id: semister.id } });
+    viewsemester(semester) {
+      this.$router.push({ name: "SemesterList", params: { id: semester.id } });
     },
 
-    deleteSemister(semister) {
-      SemisterServices.delete(semister.id)
+    deletesemester(semester) {
+      semesterServices.delete(semester.id)
         .then(() => {
-          this.retrieveSemister();
+          this.retrievesemester();
         })
         .catch((e) => {
           this.message = e.response.data.message;
         });
     },
-    retrieveSemister() {
-      SemisterServices.getAll()
+    retrievesemester() {
+      semesterServices.getAll()
         .then((response) => {
-          this.semisters = response.data;
+          this.semesters = response.data;
         })
         .catch((e) => {
           this.message = e.response.data.message;
         });
     },
     refreshList() {
-      this.retrieveSemister();
+      this.retrievesemester();
       this.currentCourse = null;
       this.currentIndex = -1;
     },
-    setActiveSemister(semister, index) {
-      this.currentSemister = semister;
-      this.currentIndex = semister ? index : -1;
+    setActivesemester(semester, index) {
+      this.currentsemester = semester;
+      this.currentIndex = semester ? index : -1;
     },
-    removeAllSemisters() {
-      SemisterServices.deleteAll()
+    removeAllsemesters() {
+      semesterServices.deleteAll()
         .then((response) => {
           console.log(response.data);
           this.refreshList();

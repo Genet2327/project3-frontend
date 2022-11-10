@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import SemesterServices from "../services/semisterServices";
+import SemesterServices from "../services/semesterServices";
 
 export default {
   name: "edit-semester",
@@ -81,14 +81,14 @@ export default {
       SemesterServices.update(this.id, data)
         .then((response) => {
           this.semester.id = response.data.id;
-          this.$router.push({ name: "SemisterList" });
+          this.$router.push({ name: "semesterList" });
         })
         .catch((e) => {
           this.message = e.response.data.message;
         });
     },
     cancel() {
-      this.$router.push({ name: "SemisterList" });
+      this.$router.push({ name: "semesterList" });
     },
   },
   mounted() {

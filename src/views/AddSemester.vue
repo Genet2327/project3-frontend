@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import SemesterServices from "../services/semisterServices";
+import SemesterServices from "../services/semesterServices";
 import Utils from "@/config/utils.js";
 
 export default {
@@ -84,7 +84,7 @@ export default {
         .then((response) => {
           this.semester.id = response.data.id;
           console.log("add " + response.data);
-          this.$router.push({ name: "SemisterList" });
+          this.$router.push({ name: "semesterList" });
         })
         .catch((e) => {
           console.log("add Eroro" + e.response.data.message);
@@ -92,7 +92,7 @@ export default {
         });
     },
     cancel() {
-      this.$router.push({ name: "SemisterList" });
+      this.$router.push({ name: "semesterList" });
     },
   },
 };

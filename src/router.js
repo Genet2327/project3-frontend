@@ -11,7 +11,7 @@ import AddCourse from "./views/AddCourse.vue";
 import AddSection from "./views/AddSection.vue";
 import EditSection from "./views/EditSection";
 
-import SemesterList from "./views/semisterList.vue";
+import SemesterList from "./views/semesterList.vue";
 import AddSemester from "./views/AddSemester.vue";
 import EditSemester from "./views/EditSemester.vue";
 
@@ -30,12 +30,12 @@ const router = new Router({
       component: Login,
     },
     {
-      path: "/Semisters",
-      name: "SemisterList",
+      path: "/semesters",
+      name: "semesterList",
       component: SemesterList,
     },
     {
-      path: "/add-semisters",
+      path: "/add-semesters",
       name: "AddSemester",
       component: AddSemester,
     },

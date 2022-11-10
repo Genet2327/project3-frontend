@@ -63,7 +63,7 @@
           { text: 'CourseNumber', value: 'courseNumber' },
           { text: 'Name', value: 'name' },
           { text: 'Level', value: 'level' },
-          { text: 'Houre', value: 'houre' },
+          { text: 'Hours', value: 'Hours' },
           { text: 'Description', value: 'description' },
           { text: 'Actions', value: 'actions', sortable: false },],
       };

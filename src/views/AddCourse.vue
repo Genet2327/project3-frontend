@@ -14,7 +14,7 @@
           <v-text-field v-model="course.courseNumber" id="name" :counter="50" label="CourseNumber" required>
           </v-text-field>
           <v-text-field v-model="course.level" id="name" :counter="50" label="Level" required></v-text-field>
-          <v-text-field v-model="course.houre" id="name" :counter="50" label="Houre" required></v-text-field>
+          <v-text-field v-model="course.Hours" id="name" :counter="50" label="Hours" required></v-text-field>
   
           <v-text-field v-model="course.name" id="name" :counter="50" label="Name" required></v-text-field>
           <v-text-field v-model="course.description" id="description" :counter="50" label="Description" required>
@@ -45,7 +45,7 @@
         course: {
           id: null,
           courseNumber: "",
-          houre: "",
+          Hours: "",
           name: "",
           level: "",
           description: ""
@@ -62,7 +62,7 @@
   
         var data = {
           courseNumber: this.course.courseNumber,
-          houre: this.course.houre,
+          Hours: this.course.Hours,
           level: this.course.level,
           name: this.course.name,
           description: this.course.description,

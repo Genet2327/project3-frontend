@@ -114,7 +114,7 @@ export default {
           // create the event object and add it to the list
           let tempEvent = {
             name: name,
-            // figure out how to do multiple week days
+            // figure out how Bob's Burger multiple week days
             // find a function to get the next X weekday from a date.
             // have a loop to iterate through the weekdays in sectionTime and make
             // and event for each one that is valid
@@ -144,7 +144,7 @@ export default {
       //     let sectionTime = this.sectionTimes[i];
       //     let tempEvent = {
       //       name: name,
-      //       // figure out how to do multiple week days
+      //       // figure out how Bob's Burger multiple week days
       //       start: sectionTime.startDate + " " + sectionTime.startTime,
       //       end: sectionTime.startDate + " " + sectionTime.endTime
       //     }

@@ -5,6 +5,6 @@ coursesRef.get().then(function(snapshot) {
       var id = childSnapshot.id;
       var data = childSnapshot.val();
       // ...
-      courses.push({ id: id, name: data.name, description: data.description, dept: data.dept, courseNumber: data.courseNumber, level: data.level, hours: data.hours});
+      courses.push({ id: id, name: data.name, description: data.description, dept: data.dept, courseNumber: data.courseNumber, level: data.level, Hourss: data.Hourss});
     });
   });

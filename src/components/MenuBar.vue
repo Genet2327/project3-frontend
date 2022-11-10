@@ -17,7 +17,7 @@
       <v-toolbar-items v-if="user != null">
         <v-btn exact :to="{ name: 'Calander' }" text> Calander </v-btn>
         <v-btn exact :to="{ name: 'Courseview'}" text>Course </v-btn>
-        <v-btn exact :to="{ name: 'SemisterList'}" text>semister </v-btn>
+        <v-btn exact :to="{ name: 'semesterList'}" text>semester </v-btn>
       </v-toolbar-items>
       <v-menu bottom min-width="200px" rounded offset-y v-if="user != null">
         <template v-slot:activator="{ on, attrs }">
@@ -57,7 +57,7 @@ export default {
   name: "App",
   data: () => ({
     user: {},
-    title: "TO Do",
+    title: "Bob's Burger",
     initials: "",
     name: "",
   }),
