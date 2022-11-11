@@ -35,9 +35,9 @@ import sectionTimeServices from "../services/sectionTimeServices";
 import courseServices from "../services/courseServices";
 export default {
   data: () => ({
-    today: "2022-04-11", // placeholder same as first session
-    calEnd: "2022-04-15", // ending date of the last session
-    sessionOne: "2022-04-11", // placeholder first session start
+    today: "2022-11-09", // placeholder same as first session
+    calEnd: "2023-04-27", // ending date of the last session
+    sessionOne: "2023-01-08", // placeholder first session start
     sessionTwo: "2023-03-06", // placeholder second session start
     displayedSession: "First Session",
     sections: [],
@@ -46,7 +46,7 @@ export default {
     selectedEvent: {},
     selectedOpen: false,
     events: [      
-    ],
+    ]
   }),
   mounted() {
     this.$refs.calendar.scrollToTime("08:00");
@@ -110,6 +110,7 @@ export default {
             (course) => course.id == section.courseId
           );
           let name = relevantCourse.name;
+          console.log(name);
           // console.log(name)
           // create the event object and add it to the list
           let tempEvent = {
@@ -118,14 +119,18 @@ export default {
             // find a function to get the next X weekday from a date.
             // have a loop to iterate through the weekdays in sectionTime and make
             // and event for each one that is valid
+
+            start: new Date(sectionTime.startDate).toISOString().slice(0, 16),
+            end: new Date(sectionTime.endDate).toISOString().slice(0, 16),
             // start: e.startDate,
             // end: e.startDate,
             // start: e.startDate + " " + e.startTime,
             // end: e.startDate + " " + e.endTime,
-            start: "2022-04-11 12:00",
-            end: "2022-04-11 1:00"
+           // start: "2022-04-11 12:00",
+           // end: "2022-04-11 1:00"
+
           };
-          // console.log(tempEvent);
+          console.log("tempEvent", tempEvent);
           this.events.push(tempEvent);
           // add a test to see if the section is in both first and second session
           // add another event if it is, but with the end date

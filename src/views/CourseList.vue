@@ -25,7 +25,7 @@
                 <!-- <v-icon small class="mx-4" @click="ADDCourseForUser(item)">
                   mdi-pencil
                 </v-icon> -->
-                <v-icon v-show="user.role == 'Admin'" small class="mx-4" @click="editCourse(item)">
+                <v-icon v-show="user.role == 'Admin'" small class="mx-4" @click="addCoursetoUser(item)">
                   mdi-account
                 </v-icon>
                 <v-icon v-show="user.role == 'Admin'" small class="mx-4" @click="editCourse(item)">
@@ -47,7 +47,7 @@
   
   <script>
   import CourseServices from "../services/courseServices";
-  import specialListServices from "../services/special_listServices";
+  import SpecialListServices from "../services/specialListServices";
 
   import Utils from '@/config/utils.js'
   
@@ -82,12 +82,13 @@
       viewCourse(course) {
         this.$router.push({ name: 'viewCourse', params: { id: course.id } });
       },
-      ADDCourseForUser(course) {
+      addCoursetoUser(course) {
         var data = {
-          userId: this.user.id,
-          courseId: course.id
+          userId: this.user.userId,
+          coursesId: course.id
         };
-        specialListServices.create(data)
+        console.log("add ", data);
+        SpecialListServices.create(data)
           .then(response => {
             this.course.id = response.data.id;
             console.log("add " + response.data);

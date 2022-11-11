@@ -1,6 +1,9 @@
 import apiClient from "@/services/services.js";
 
 export default {
+  getAll() {
+    return apiClient.get(`/course/sections`);
+  },
   getAllSections(courseId) {
     return apiClient.get(`/course/${courseId}/sections`);
   },

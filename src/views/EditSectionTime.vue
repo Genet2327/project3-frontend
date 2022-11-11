@@ -25,21 +25,16 @@
           required
         >
         </v-text-field>
-        <v-text-field
+
+        <v-datetime-picker
+          label="Start Datetime"
           v-model="sectionTime.startDate"
-          id="startDate"
-          :counter="50"
-          label="StartDate"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="sectionTime.endDate"
-          id="endDate"
-          :counter="50"
-          label="EndDate"
-          required
-        ></v-text-field>
-        <v-text-field
+        >
+        </v-datetime-picker>
+        <v-datetime-picker label="End Datetime" v-model="sectionTime.endDate">
+        </v-datetime-picker>
+
+        <!-- <v-text-field
           v-model="sectionTime.startTime"
           id="startTime"
           :counter="50"
@@ -52,7 +47,25 @@
           :counter="50"
           label="EndTime"
           required
-        ></v-text-field>
+        ></v-text-field> -->
+        <v-select
+          v-bind:items="sections"
+          v-model="sectionId"
+          label="Select section"
+          item-text="title"
+          item-value="id"
+          return-object
+          autocomplete
+        ></v-select>
+        <v-select
+          v-bind:items="rooms"
+          v-model="roomId"
+          label="Select room"
+          item-text="number"
+          item-value="id"
+          return-object
+          autocomplete
+        ></v-select>
         <v-btn
           :disabled="!valid"
           color="success"
@@ -70,22 +83,51 @@
 
 <script>
 import SectionTimeServices from "../services/sectionTimeServices";
+import SectionServices from "../services/sectionServices";
+import RoomServices from "../services/roomServices";
 
 export default {
   name: "edit-sectionTime",
   props: ["id"],
   data() {
     return {
+      sections: [],
+      sectionId: null,
+      rooms: [],
+      roomId: null,
+
       valid: false,
       sectionTime: {},
       message: "Enter data and click save",
     };
   },
   methods: {
+    sectionDrop() {
+      SectionServices.getAll()
+        .then((response) => {
+          this.sections = response.data;
+          console.log(this.sections.name);
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
+    roomDrop() {
+      RoomServices.getAll()
+        .then((response) => {
+          this.rooms = response.data;
+          //console.log(this.semesters.name);
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
     retrieveSectionTime() {
       SectionTimeServices.get(this.id)
         .then((response) => {
           this.sectionTime = response.data;
+          this.roomId = this.sectionTime.roomId;
+          this.sectionId = this.sectionTime.sectionId;
         })
         .catch((e) => {
           this.message = e.response.data.message;
@@ -116,6 +158,8 @@ export default {
   },
   mounted() {
     this.retrieveSectionTime();
+    this.sectionDrop();
+    this.roomDrop();
   },
 };
 </script>
