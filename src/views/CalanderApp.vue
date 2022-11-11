@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import SectionDataService from "../services/sectionServices";
-import SectionTimeDataService from "../services/sectionTimeServices";
-import CourseDataService from "../services/courseServices";
+import sectionServices from "../services/sectionServices";
+import sectionTimeServices from "../services/sectionTimeServices";
+import courseServices from "../services/courseServices";
 export default {
   data: () => ({
     today: "2022-11-09", // placeholder same as first session
@@ -45,20 +45,24 @@ export default {
     courses: [],
     selectedEvent: {},
     selectedOpen: false,
-    events: [],
+    events: [      
+    ]
   }),
   mounted() {
     this.$refs.calendar.scrollToTime("08:00");
   },
   async beforeMount() {
     await this.getSections();
-    // console.log(this.events)
+    //console.log(this.events)
   },
   methods: {
     async getSections() {
-      await SectionDataService.getAll()
+      await sectionServices
+        .getAllSections(1)
         .then(async (response) => {
           this.sections = response.data;
+          //console.log("sections", this.sections)
+
           await this.getSectionTimes(); // grab sectionTimes
           await this.getCourses();
           // map sectionTimes to sections
@@ -72,7 +76,8 @@ export default {
         });
     },
     async getSectionTimes() {
-      await SectionTimeDataService.getAll()
+      await sectionTimeServices
+        .getAll()
         .then((response) => {
           this.sectionTimes = response.data;
           // Change this for the filter
@@ -83,7 +88,8 @@ export default {
         });
     },
     async getCourses() {
-      await CourseDataService.getAll()
+      await courseServices
+        .getAll()
         .then((response) => {
           this.courses = response.data;
         })
@@ -95,8 +101,9 @@ export default {
     // If the section is a full semester, 2 events will
     // be created, one for each section time.
     createEvent(section) {
-      this.sectionTimes.forEach((sectionTime) => {
-        if (section.id == sectionTime.sectionId) {
+      this.sectionTimes.forEach((e) => {
+        if (section.id == e.sectionId) {         
+
           // find the course name
           // suggest that the sections controller has a function to grab sections, include their courses and include their sectionTimes
           let relevantCourse = this.courses.find(
@@ -112,8 +119,16 @@ export default {
             // find a function to get the next X weekday from a date.
             // have a loop to iterate through the weekdays in sectionTime and make
             // and event for each one that is valid
+
             start: new Date(sectionTime.startDate).toISOString().slice(0, 16),
             end: new Date(sectionTime.endDate).toISOString().slice(0, 16),
+            // start: e.startDate,
+            // end: e.startDate,
+            // start: e.startDate + " " + e.startTime,
+            // end: e.startDate + " " + e.endTime,
+           // start: "2022-04-11 12:00",
+           // end: "2022-04-11 1:00"
+
           };
           console.log("tempEvent", tempEvent);
           this.events.push(tempEvent);
