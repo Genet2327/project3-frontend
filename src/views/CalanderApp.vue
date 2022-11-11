@@ -35,7 +35,7 @@ import SectionTimeDataService from "../services/sectionTimeServices";
 import CourseDataService from "../services/courseServices";
 export default {
   data: () => ({
-    today: "2023-01-08", // placeholder same as first session
+    today: "2022-11-09", // placeholder same as first session
     calEnd: "2023-04-27", // ending date of the last session
     sessionOne: "2023-01-08", // placeholder first session start
     sessionTwo: "2023-03-06", // placeholder second session start
@@ -45,37 +45,7 @@ export default {
     courses: [],
     selectedEvent: {},
     selectedOpen: false,
-    events: [
-      // example events
-      {
-        name: "Weekly Meeting",
-        start: "2019-01-07 9:00",
-        // start: {
-        //   date: '2019-01-07',
-        //   time: '09:00',
-        // },
-        end: "2019-01-07 10:00",
-      },
-      {
-        name: `Thomas' Birthday`,
-        start: "2019-01-10",
-      },
-      {
-        name: "Mash Potatoes",
-        start: "2019-01-09 12:30",
-        end: "2019-01-09 15:30",
-      },
-      {
-        name: "Second Weekly Meeting",
-        start: "2019-07-10 12:30",
-        end: "2019-07-10 15:00",
-      },
-      {
-        name: "Some other event",
-        start: "2019-07-07 12:30",
-        end: "2019-07-07 15:00",
-      },
-    ],
+    events: [],
   }),
   mounted() {
     this.$refs.calendar.scrollToTime("08:00");
@@ -133,6 +103,7 @@ export default {
             (course) => course.id == section.courseId
           );
           let name = relevantCourse.name;
+          console.log(name);
           // console.log(name)
           // create the event object and add it to the list
           let tempEvent = {
@@ -141,10 +112,10 @@ export default {
             // find a function to get the next X weekday from a date.
             // have a loop to iterate through the weekdays in sectionTime and make
             // and event for each one that is valid
-            start: sectionTime.startDate + " " + sectionTime.startTime,
-            end: sectionTime.startDate + " " + sectionTime.endTime,
+            start: new Date(sectionTime.startDate).toISOString().slice(0, 16),
+            end: new Date(sectionTime.endDate).toISOString().slice(0, 16),
           };
-          // console.log(tempEvent);
+          console.log("tempEvent", tempEvent);
           this.events.push(tempEvent);
           // add a test to see if the section is in both first and second session
           // add another event if it is, but with the end date

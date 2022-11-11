@@ -45,9 +45,9 @@
               <v-icon small class="mx-4" @click="editSectionTime(item)">
                 mdi-pencil
               </v-icon>
-              <v-icon small class="mx-4" @click="viewSectionTime(item)">
+              <!-- <v-icon small class="mx-4" @click="viewSectionTime(item)">
                 mdi-format-list-bulleted-type
-              </v-icon>
+              </v-icon> -->
               <v-icon small class="mx-4" @click="deleteSectionTime(item)">
                 mdi-trash-can
               </v-icon>
@@ -81,8 +81,8 @@ export default {
         { text: "Date_of_weak", value: "date_of_weak" },
         { text: "StartDate", value: "startDate" },
         { text: "EndDate", value: "endDate" },
-        { text: "StartTime", value: "startTime" },
-        { text: "EndTime", value: "endTime" },
+        // { text: "StartTime", value: "startTime" },
+        // { text: "EndTime", value: "endTime" },
         { text: "Actions", value: "actions", sortable: false },
       ],
     };

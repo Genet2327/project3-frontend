@@ -19,20 +19,10 @@
           required
         >
         </v-text-field>
-        <v-text-field
-          v-model="semester.startDate"
-          id="startDate"
-          :counter="50"
-          label="StartDate"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="semester.endDate"
-          id="endDate"
-          :counter="50"
-          label="EndDate"
-          required
-        ></v-text-field>
+        <v-datetime-picker label="Start Datetime" v-model="semester.startDate">
+        </v-datetime-picker>
+        <v-datetime-picker label="End Datetime" v-model="semester.endDate">
+        </v-datetime-picker>
 
         <v-btn
           :disabled="!valid"

@@ -105,7 +105,7 @@ export default {
         .then((response) => {
           this.course.id = response.data.id;
           console.log("add " + response.data);
-          this.$router.push({ name: "courses" });
+          this.$router.push({ name: "Courseview" });
         })
         .catch((e) => {
           console.log("add Eroro" + e.response.data.message);
@@ -115,7 +115,7 @@ export default {
     cancel() {
       console.log("add tetstststts");
 
-      this.$router.push({ name: "courses" });
+      this.$router.push({ name: "Courseview" });
     },
   },
 };
