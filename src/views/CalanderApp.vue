@@ -45,8 +45,7 @@ export default {
     courses: [],
     selectedEvent: {},
     selectedOpen: false,
-    events: [      
-    ]
+    events: [],
   }),
   mounted() {
     this.$refs.calendar.scrollToTime("08:00");
@@ -102,8 +101,7 @@ export default {
     // be created, one for each section time.
     createEvent(section) {
       this.sectionTimes.forEach((e) => {
-        if (section.id == e.sectionId) {         
-
+        if (section.id == e.sectionId) {
           // find the course name
           // suggest that the sections controller has a function to grab sections, include their courses and include their sectionTimes
           let relevantCourse = this.courses.find(
@@ -120,15 +118,14 @@ export default {
             // have a loop to iterate through the weekdays in sectionTime and make
             // and event for each one that is valid
 
-            start: new Date(sectionTime.startDate).toISOString().slice(0, 16),
-            end: new Date(sectionTime.endDate).toISOString().slice(0, 16),
+            start: new Date(e.startDate).toISOString().slice(0, 16),
+            end: new Date(e.endDate).toISOString().slice(0, 16),
             // start: e.startDate,
             // end: e.startDate,
             // start: e.startDate + " " + e.startTime,
             // end: e.startDate + " " + e.endTime,
-           // start: "2022-04-11 12:00",
-           // end: "2022-04-11 1:00"
-
+            // start: "2022-04-11 12:00",
+            // end: "2022-04-11 1:00"
           };
           console.log("tempEvent", tempEvent);
           this.events.push(tempEvent);
