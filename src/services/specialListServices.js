@@ -13,7 +13,7 @@ export default {
   update(courseId,id, data) {
     return apiClient.put(`/special_lists/${courseId}/${id}`, data);
   },
-  delete(courseId,id) {
-    return apiClient.delete(`/special_lists/${courseId}/${id}`);
+  delete(id) {
+    return apiClient.delete(`/special_lists/${id}`);
   }
 }

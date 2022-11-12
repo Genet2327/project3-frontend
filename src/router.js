@@ -20,6 +20,16 @@ import AddSectionTime from "./views/AddSectionTime.vue";
 import EditSectionTime from "./views/EditSectionTime.vue";
 import ViewSectionTime from "./views/ViewSectionTime.vue";
 
+
+import RoomList from "./views/RoomList.vue";
+import AddRoom from "./views/AddRoom.vue";
+import EditRoom from "./views/EditRoom.vue";
+
+import RoleList from "./views/RoleList.vue";
+import EditRole from "./views/EditRole.vue";
+
+import UserCourseList from "./views/UserCourseList.vue";
+
 Vue.use(Router);
 
 const router = new Router({
@@ -29,6 +39,40 @@ const router = new Router({
     //    process.env.NODE_ENV === 'development'? "/" : "/Scheduling/", - for AWS
     process.env.NODE_ENV === "development" ? "/" : "/",
   routes: [
+    {
+      path: "/view-c/:id",
+      name: "UserCourseList",
+      component: UserCourseList,
+      props: true,
+    },
+    {
+      path: "/RoleList",
+      name: "RoleList",
+      component: RoleList,
+    },
+   
+    {
+      path: "/edit-role/:id",
+      name: "EditRole",
+      component: EditRole,
+      props: true,
+    },
+    {
+      path: "/RoomList",
+      name: "RoomList",
+      component: RoomList,
+    },
+    {
+      path: "/add-AddRooms",
+      name: "AddRoom",
+      component: AddRoom,
+    },
+    {
+      path: "/edit/:id",
+      name: "EditRoom",
+      component: EditRoom,
+      props: true,
+    },
     {
       path: "/",
       name: "login",

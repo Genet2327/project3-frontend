@@ -10,27 +10,6 @@
       <v-card>
         <v-card-title>
           Courses
-          <v-btn
-            v-show="user.role == 'Admin'"
-            class="mx-2"
-            color="success"
-            exact
-            :to="{ name: 'CourseAdd' }"
-            text
-          >
-            Add
-          </v-btn>
-
-          <v-btn
-            v-show="user.role == 'Admin'"
-            class="mx-2"
-            color="success"
-            exact
-            :to="{ name: 'UserCourseList', params: { id: this.user.userId }}"
-            text
-          >
-            View
-          </v-btn>
 
           <v-spacer></v-spacer>
           <v-text-field
@@ -56,25 +35,7 @@
               <!-- <v-icon small class="mx-4" @click="ADDCourseForUser(item)">
                   mdi-pencil
                 </v-icon> -->
-              <v-icon
-                v-show="user.role == 'Admin'"
-                small
-                class="mx-4"
-                @click="addCoursetoUser(item)"
-              >
-                mdi-account
-              </v-icon>
-              <v-icon
-                v-show="user.role == 'Admin'"
-                small
-                class="mx-4"
-                @click="editCourse(item)"
-              >
-                mdi-pencil
-              </v-icon>
-              <v-icon small class="mx-4" @click="viewCourse(item)">
-                mdi-format-list-bulleted-type
-              </v-icon>
+
               <v-icon small class="mx-4" @click="deleteCourse(item)">
                 mdi-trash-can
               </v-icon>
@@ -94,10 +55,12 @@ import Utils from "@/config/utils.js";
 
 export default {
   name: "courses-list",
+  props: ["id"],
   data() {
     return {
       search: "",
       courses: [],
+      specialList: [],
       currentCourse: null,
       currentIndex: -1,
       name: "",
@@ -118,48 +81,50 @@ export default {
     this.retrieveCourses();
   },
   methods: {
-    editCourse(course) {
-      this.$router.push({ name: "EditCourse", params: { id: course.id } });
-    },
-    viewCourse(course) {
-      this.$router.push({ name: "viewCourse", params: { id: course.id } });
-    },
-    addCoursetoUser(course) {
-      var data = {
-        userId: this.user.userId,
-        courseId: course.id,
-      };
-      console.log("add ", data);
-      SpecialListServices.create(data)
-        .then((response) => {
-          this.course.id = response.data.id;
-          console.log("add " + response.data);
-          this.$router.push({ name: "Courseview" });
-          this.$router.go();
-        })
-        .catch((e) => {
-          // console.log("add Eroro" + e.response.data.message);
-          this.message = e.response.data.message;
-        });
-    },
     deleteCourse(course) {
-      CourseServices.delete(course.id)
-        .then(() => {
-          this.retrieveCourses();
-        })
-        .catch((e) => {
-          this.message = e.response.data.message;
-        });
-    },
-    retrieveCourses() {
-      CourseServices.getAll()
+      SpecialListServices.getAll()
         .then((response) => {
-          this.courses = response.data;
+          let a = response.data;
+          let special = a.find(
+            (b) => b.userId == this.id && b.courseId == course.id
+          );
+          SpecialListServices.delete(special.id)
+            .then(() => {
+              this.retrieveCourses();
+              this.$router.push({ name: "UserCourseList", params: { id: 1 } });
+              this.$router.go();
+            })
+            .catch((e) => {
+              this.message = e.response.data.message;
+            });
         })
         .catch((e) => {
           this.message = e.response.data.message;
         });
     },
+    async retrieveCourses() {
+      await SpecialListServices.getAll()
+        .then((response) => {
+          let a = response.data;
+          this.specialList = a.filter((b) => b.userId == this.id);
+          this.specialList.forEach((e) => {
+            this.createSpcialList(e.courseId);
+          });
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
+    async createSpcialList(courseId) {
+      await CourseServices.get(courseId)
+        .then((response) => {
+          this.courses.push(response.data);
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
+
     refreshList() {
       this.retrieveCourses();
       this.currentCourse = null;

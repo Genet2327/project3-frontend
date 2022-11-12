@@ -33,6 +33,9 @@
 import sectionServices from "../services/sectionServices";
 import sectionTimeServices from "../services/sectionTimeServices";
 import courseServices from "../services/courseServices";
+import SpecialListServices from "../services/specialListServices";
+import Utils from "@/config/utils.js";
+
 export default {
   data: () => ({
     today: "2022-11-09", // placeholder same as first session
@@ -49,6 +52,7 @@ export default {
   }),
   mounted() {
     this.$refs.calendar.scrollToTime("08:00");
+    this.user = Utils.getStore("user");
   },
   async beforeMount() {
     await this.getSections();
@@ -57,10 +61,10 @@ export default {
   methods: {
     async getSections() {
       await sectionServices
-        .getAllSections(1)
+        .getAll()
         .then(async (response) => {
           this.sections = response.data;
-          //console.log("sections", this.sections)
+          console.log("sections", this.sections)
 
           await this.getSectionTimes(); // grab sectionTimes
           await this.getCourses();
@@ -87,13 +91,26 @@ export default {
         });
     },
     async getCourses() {
-      await courseServices
-        .getAll()
+      await SpecialListServices.getAll()
         .then((response) => {
-          this.courses = response.data;
+          let a = response.data;
+          this.specialList = a.filter((b) => b.userId == this.user.userId);
+          this.specialList.forEach((e) => {
+            this.createSpcialList(e.courseId);
+          });
         })
         .catch((e) => {
-          console.log(e);
+          this.message = e.response.data.message;
+        });
+    },
+    async createSpcialList(courseId) {
+      await courseServices.get(courseId)
+        .then((response) => {
+          this.courses.push(response.data);
+          console.log("this.courses", this.courses)
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
         });
     },
     // Map sectionTimes to sections and add a new event.
@@ -104,7 +121,7 @@ export default {
         if (section.id == e.sectionId) {
           // find the course name
           // suggest that the sections controller has a function to grab sections, include their courses and include their sectionTimes
-          let relevantCourse = this.courses.find(
+          let relevantCourse = this.courses.filter(
             (course) => course.id == section.courseId
           );
           let name = relevantCourse.name;
