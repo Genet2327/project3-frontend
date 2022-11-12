@@ -15,9 +15,11 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items v-if="user != null">
+        <v-btn exact :to="{ name: 'RoleList' }" text> Roles </v-btn>
         <v-btn exact :to="{ name: 'Calander' }" text> Calander </v-btn>
         <v-btn exact :to="{ name: 'Courseview' }" text>Course </v-btn>
         <v-btn exact :to="{ name: 'SemisterList' }" text>Semister </v-btn>
+        <v-btn exact :to="{ name: 'RoomList' }" text>Room </v-btn>
         <v-btn exact :to="{ name: 'SectionTimeList' }" text
           >Section Time
         </v-btn>

@@ -58,8 +58,8 @@ export default {
           this.fName = this.user.fName;
           this.lName = this.user.lName;
           
-          // this.$router.push({ name: "Calander" });
-          // this.$router.go();
+          this.$router.push({ name: "courseView" });
+          this.$router.go();
           console.log("user", this.user);
 
         })
