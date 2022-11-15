@@ -22,7 +22,7 @@
           </v-btn>
 
           <v-btn
-            v-show="user.role == 'Admin'"
+            v-show="user.role == 'stu'"
             class="mx-2"
             color="success"
             exact

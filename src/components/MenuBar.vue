@@ -14,16 +14,18 @@
         <div>{{ this.title }}</div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items v-if="user != null">
-        <v-btn exact :to="{ name: 'RoleList' }" text> Roles </v-btn>
-        <v-btn exact :to="{ name: 'Calander' }" text> Calander </v-btn>
-        <v-btn exact :to="{ name: 'Courseview' }" text>Course </v-btn>
-        <v-btn exact :to="{ name: 'SemisterList' }" text>Semister </v-btn>
+      <v-toolbar-items v-if="user.role != 'null'">
+        <v-btn  exact :to="{ name: 'RoleList' }" text> Roles </v-btn>
+        
+        <v-btn    exact :to="{ name: 'Courseview' }" text>Course </v-btn>
+        <v-btn   exact :to="{ name: 'SemisterList' }" text>Semister </v-btn>
         <v-btn exact :to="{ name: 'RoomList' }" text>Room </v-btn>
-        <v-btn exact :to="{ name: 'SectionTimeList' }" text
+        <v-btn  exact :to="{ name: 'RoomList' }" text>facality </v-btn>
+        <v-btn   exact :to="{ name: 'SectionTimeList' }" text
           >Section Time
         </v-btn>
-      </v-toolbar-items>
+        </v-toolbar-items>
+        
       <v-menu bottom min-width="200px" rounded offset-y v-if="user != null">
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon x-large v-on="on" v-bind="attrs">
