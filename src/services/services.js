@@ -5,9 +5,9 @@ import Router from "../router.js"
 
 var baseurl = "";
 if (process.env.NODE_ENV === "development") {
-  baseurl = "http://localhost:8080/api/";
+  baseurl = "http://localhost/schedule-t6/";
 } else {
-  baseurl = "/api/";
+  baseurl = "/schedule-t6/";
 }
  
 const apiClient = axios.create({
