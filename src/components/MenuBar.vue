@@ -20,7 +20,7 @@
         <v-btn   exact :to="{ name: 'Courseview' }" text>Course </v-btn>
         <v-btn   exact :to="{ name: 'SemisterList' }" text>Semester </v-btn>
         <v-btn exact :to="{ name: 'RoomList' }" text>Room </v-btn>
-        <v-btn  exact :to="{ name: 'RoomList' }" text>Faculity </v-btn>
+        <v-btn  exact :to="{ name: 'FaculityList' }" text>Faculity </v-btn>
         <v-btn   exact :to="{ name: 'SectionTimeList' }" text
           >Section Time
         </v-btn>
