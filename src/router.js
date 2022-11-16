@@ -25,6 +25,12 @@ import RoomList from "./views/RoomList.vue";
 import AddRoom from "./views/AddRoom.vue";
 import EditRoom from "./views/EditRoom.vue";
 
+
+
+import FaculityList from "./views/FaculityList.vue";
+import AddFaculity from "./views/AddFaculity.vue";
+import EditFaculity from "./views/EditFaculity.vue";
+
 import RoleList from "./views/RoleList.vue";
 import EditRole from "./views/EditRole.vue";
 
@@ -39,6 +45,22 @@ const router = new Router({
     //    process.env.NODE_ENV === 'development'? "/" : "/Scheduling/", - for AWS
     process.env.NODE_ENV === "development" ? "/" : "/",
   routes: [
+    {
+      path: "/FaculityList",
+      name: "FaculityList",
+      component: FaculityList,
+    },
+    {
+      path: "/add-AddFaculity",
+      name: "AddFaculity",
+      component: AddFaculity,
+    },
+    {
+      path: "/edit/:id",
+      name: "EditFaculity",
+      component: EditFaculity,
+      props: true,
+    },
     {
       path: "/view-c/:id",
       name: "UserCourseList",
@@ -73,6 +95,7 @@ const router = new Router({
       component: EditRoom,
       props: true,
     },
+    
     {
       path: "/",
       name: "login",
